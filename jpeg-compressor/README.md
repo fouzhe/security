@@ -1,4 +1,4 @@
-I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, this file can cause global-buffer-overflow when executing this command:
+I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, this [file](https://github.com/fouzhe/security/blob/master/jpeg-compressor/crash) can cause global-buffer-overflow when executing this command:
 
 ```
 ./encoder crash 1.jpeg 50
