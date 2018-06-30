@@ -1,7 +1,9 @@
-I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, this [file](https://github.com/fouzhe/security/blob/master/jpeg-compressor/crash) can cause global-buffer-overflow when executing this command:
+### global_buffer_overflow
+
+I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, this [file](https://github.com/fouzhe/security/blob/master/jpeg-compressor/crash_global_buffer_overflow) can cause global-buffer-overflow when executing this command:
 
 ```
-./encoder crash 1.jpeg 50
+./encoder ./crash_global_buffer_overflow 1.jpeg 50
 ```
 
 
@@ -9,7 +11,7 @@ I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, thi
 This is the ASAN information:
 
 ```
-==15244==ERROR: AddressSanitizer: global-buffer-overflow on address 0x000000734f4c at pc 0x00000068bcd5 bp 0x7ffe7fccbac0 sp 0x7ffe7fccbab8
+==31440==ERROR: AddressSanitizer: global-buffer-overflow on address 0x000000734f4c at pc 0x00000068bcd5 bp 0x7ffd7d4e8a00 sp 0x7ffd7d4e89f8
 READ of size 4 at 0x000000734f4c thread T0
     #0 0x68bcd4 in extend_receive(jpeg*, int) /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:1120:26
     #1 0x68bcd4 in decode_block(jpeg*, short*, huffman*, huffman*, int) /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:1164
@@ -21,7 +23,7 @@ READ of size 4 at 0x000000734f4c thread T0
     #7 0x66a0ab in stbi_load_from_file /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:567:11
     #8 0x66a0ab in stbi_load /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:558
     #9 0x66a0ab in main /home/fouzhe/my_fuzz/jpeg-compressor/encoder.cpp:345
-    #10 0x7fb352a3582f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #10 0x7f3d5c57582f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
     #11 0x41aa18 in _start (/home/fouzhe/my_fuzz/jpeg-compressor/encoder+0x41aa18)
 
 0x000000734f4c is located 20 bytes to the left of global variable '<string literal>' defined in './stb_image.c:1102:4' (0x734f60) of size 76
@@ -59,19 +61,26 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
   ASan internal:           fe
   Left alloca redzone:     ca
   Right alloca redzone:    cb
-==15244==ABORTING
+==31440==ABORTING
 ```
 
 
 
+### stack-buffer-overflow
 
-
-
+I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, this [file](https://github.com/fouzhe/security/blob/master/jpeg-compressor/crash_stack_buffer_overflow) can cause stack-buffer-overflow when executing this command:
 
 ```
-=================================================================
-==23160==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffda4c5beb0 at pc 0x00000068231d bp 0x7ffda4c53950 sp 0x7ffda4c53948
-WRITE of size 1 at 0x7ffda4c5beb0 thread T0
+./encoder ./crash_stack_buffer_overflow 1.jpeg 50
+```
+
+
+
+This is the ASAN information:
+
+```
+==26257==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffc7bb25690 at pc 0x00000068231d bp 0x7ffc7bb1d130 sp 0x7ffc7bb1d128
+WRITE of size 1 at 0x7ffc7bb25690 thread T0
     #0 0x68231c in build_huffman(huffman*, int*) /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:1005:23
     #1 0x67c315 in process_marker(jpeg*, int) /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:1474:21
     #2 0x5ded36 in decode_jpeg_image(jpeg*) /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:1641:15
@@ -81,10 +90,10 @@ WRITE of size 1 at 0x7ffda4c5beb0 thread T0
     #6 0x66a0ab in stbi_load_from_file /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:567:11
     #7 0x66a0ab in stbi_load /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:558
     #8 0x66a0ab in main /home/fouzhe/my_fuzz/jpeg-compressor/encoder.cpp:345
-    #9 0x7fc447b4d82f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #9 0x7fd19a50a82f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
     #10 0x41aa18 in _start (/home/fouzhe/my_fuzz/jpeg-compressor/encoder+0x41aa18)
 
-Address 0x7ffda4c5beb0 is located in stack of thread T0 at offset 33680 in frame
+Address 0x7ffc7bb25690 is located in stack of thread T0 at offset 33680 in frame
     #0 0x5d90bf in stbi_load_main(stbi*, int*, int*, int*, int) /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:531
 
   This frame has 11 object(s):
@@ -103,17 +112,17 @@ HINT: this may be a false positive if your program uses some custom stack unwind
       (longjmp and C++ exceptions *are* supported)
 SUMMARY: AddressSanitizer: stack-buffer-overflow /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image.c:1005:23 in build_huffman(huffman*, int*)
 Shadow bytes around the buggy address:
-  0x100034983780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x100034983790: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x1000349837a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x1000349837b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x1000349837c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-=>0x1000349837d0: 00 00 00 00 00 00[f2]f2 f2 f2 f2 f2 f2 f2 f2 f2
-  0x1000349837e0: f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2
-  0x1000349837f0: f2 f2 f2 f2 f2 f2 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
-  0x100034983800: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
-  0x100034983810: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
-  0x100034983820: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  0x10000f75ca80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10000f75ca90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10000f75caa0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10000f75cab0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10000f75cac0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x10000f75cad0: 00 00[f2]f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2
+  0x10000f75cae0: f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2 f2
+  0x10000f75caf0: f2 f2 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  0x10000f75cb00: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  0x10000f75cb10: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  0x10000f75cb20: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
 Shadow byte legend (one shadow byte represents 8 application bytes):
   Addressable:           00
   Partially addressable: 01 02 03 04 05 06 07
@@ -133,6 +142,6 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
   ASan internal:           fe
   Left alloca redzone:     ca
   Right alloca redzone:    cb
-==23160==ABORTING
+==26257==ABORTING
 ```
 
