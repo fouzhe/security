@@ -354,7 +354,11 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/jpeg-compressor/./stb_image
 
 
 
-#stack_buffer_overflow in function do_zlib 
+
+
+
+
+# stack_buffer_overflow in function do_zlib
 
 I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, this [file](https://github.com/fouzhe/security/blob/master/jpeg-compressor/crash_stack_buffer_overflow_in_do_zlib) can cause stack-buffer-overflow when executing this command:
 
