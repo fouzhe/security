@@ -66,7 +66,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 
 
-# stack-buffer-overflow in function build_huffman
+# stack-buffer-overflow in function build_huffman(CVE-2018-13030)
 
 I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, this [file](https://github.com/fouzhe/security/blob/master/jpeg-compressor/crash_stack_buffer_overflow) can cause stack-buffer-overflow in function "build_huffman" when executing this command:
 
@@ -149,7 +149,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 
 
-# heap-buffer-overflow in function bmp_load
+# heap-buffer-overflow in function bmp_load(CVE-2018-13037)
 
 I use **Clang 6.0 and AddressSanitizer**  to build **jpeg-compressor v0.1**, this [file](https://github.com/fouzhe/security/blob/master/jpeg-compressor/crash_heap_buffer_overflow_in_bmp_load) can cause heap_buffer_overflow when executing this command:
 
