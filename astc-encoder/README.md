@@ -1,6 +1,8 @@
-###Memory leak 
+### Memory leak
 
-I use **g++ 5.4.0 and AddressSanitizer**  to build **astc-encoder v1.4**, this [file](https://github.com/fouzhe/security/blob/master/jpeg-compressor/crash_global_buffer_overflow) can cause memory leak when executing this command:
+
+
+I use **g++ 5.4.0 and AddressSanitizer**  to build **astc-encoder v1.4**, this [file](https://github.com/fouzhe/security/blob/master/astc-encoder/pngtest.png) can cause memory leak when executing this command:
 
 
 
