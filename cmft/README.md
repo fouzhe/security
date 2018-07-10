@@ -25,7 +25,7 @@ AddressSanitizer: nested bug in the same thread, aborting.
 
 
 
-This is the debug information:
+This is the gdb information:
 
 ```
 #0  __interceptor_fread (ptr=0x7ffffffe4c50, size=1, nmemb=49152, 
