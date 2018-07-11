@@ -1,4 +1,4 @@
-#  SEGV
+#  SEGV in function pngwriter::readfromfile
 
 
 
