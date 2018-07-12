@@ -109,6 +109,33 @@ Here is the gdb information:
 
 
 
+The infinite loop is caused by this:
+
+```cpp
+	while (!feof (f))
+	{
+		wav_chunk_read (&chunk, f);
+		
+		switch (chunk.chunk_id.hash)
+		{
+			case WAV_CHUNKID_FORMAT:
+				wavfile->format = chunk.content.format;
+				break;
+			case WAV_CHUNKID_DATA:
+				wavfile->datablocks = chunk.chunk_size / sizeof (int);
+				wavfile->data = chunk.content.data;
+				fclose (f);
+				return WAV_OK;
+			default:
+				// NOTE: Unknown chunk!
+				fseek (f, chunk.chunk_size, SEEK_CUR);
+				break;
+		}
+	}
+```
+
+
+
 
 
 
