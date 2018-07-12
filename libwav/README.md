@@ -1,10 +1,10 @@
-#   SEGV in function apply_gain in wav_gain.c
+#    SEGV in function apply_gain in wav_gain.c
 
 
 
 
 
-I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__SEGV_apply_gain) can cause SEGV signal in function `apply_gain`  when running the **test** `wav_gain` in folder `tools/wav_gain` with the following command:
+I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__SEGV_apply_gain) can cause SEGV signal in function `apply_gain`  when running the  `wav_gain` in folder `tools/wav_gain` with the following command:
 
 
 
@@ -38,11 +38,11 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/libwav/tools/wav_gain/wav_g
 
 
 
-#  SEGV in function gain_file in wav_gain.c
+#   SEGV in function wrap_free in libwav.c
 
 
 
-I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__SEGV_gain_file) can cause SEGV signal in function `gain_file`  when running the **test** `wav_gain` in folder `tools/wav_gain` with the following command:
+I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__SEGV_gain_file) can cause SEGV signal in function `wrap_free`  when running the  `wav_gain` in folder `tools/wav_gain` with the following command:
 
 
 
@@ -59,32 +59,35 @@ This is the ASAN information:
 ```
 LibWAV v. 0.0.1 A (c) 2016 - 2017 Marc Volker Dickmann
 
-AddressSanitizer:DEADLYSIGNAL
+ASAN:DEADLYSIGNAL
 =================================================================
-==27559==ERROR: AddressSanitizer: SEGV on unknown address 0x0000ff564147 (pc 0x000000424c5f bp 0x7ffd8c14b080 sp 0x7ffd8c14b020 T0)
-==27559==The signal is caused by a WRITE memory access.
-    #0 0x424c5e in bool __sanitizer::atomic_compare_exchange_strong<__sanitizer::atomic_uint8_t>(__sanitizer::atomic_uint8_t volatile*, __sanitizer::atomic_uint8_t::Type*, __sanitizer::atomic_uint8_t::Type, __sanitizer::memory_order) /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/../sanitizer_common/sanitizer_atomic_clang.h:81
-    #1 0x424c5e in __asan::Allocator::AtomicallySetQuarantineFlagIfAllocated(__asan::AsanChunk*, void*, __sanitizer::BufferedStackTrace*) /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/asan_allocator.cc:540
-    #2 0x424c5e in __asan::Allocator::Deallocate(void*, unsigned long, unsigned long, __sanitizer::BufferedStackTrace*, __asan::AllocType) /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/asan_allocator.cc:617
-    #3 0x424c5e in __asan::asan_free(void*, __sanitizer::BufferedStackTrace*, __asan::AllocType) /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/asan_allocator.cc:847
-    #4 0x4ddf53 in __interceptor_cfree.localalias.0 /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/asan_malloc_linux.cc:79
-    #5 0x518b26 in gain_file /home/fouzhe/my_fuzz/libwav/tools/wav_gain/wav_gain.c:33:2
-    #6 0x518b26 in main /home/fouzhe/my_fuzz/libwav/tools/wav_gain/wav_gain.c:43
-    #7 0x7f48fc63982f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
-    #8 0x419f08 in _start (/home/fouzhe/my_fuzz/libwav/tools/wav_gain/wav_gain+0x419f08)
+==89112==ERROR: AddressSanitizer: SEGV on unknown address 0x0000ff564147 (pc 0x0001060e8809 bp 0x7fff59b24ee0 sp 0x7fff59b24eb0 T0)
+==89112==The signal is caused by a WRITE memory access.
+    #0 0x1060e8808 in __asan::Allocator::Deallocate(void*, unsigned long, __sanitizer::BufferedStackTrace*, __asan::AllocType) (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x3808)
+    #1 0x10613e130 in wrap_free (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x59130)
+    #2 0x1060db8fc in wav_free libwav.c:196
+    #3 0x1060dc54f in gain_file wav_gain.c:33
+    #4 0x1060dc3b2 in main wav_gain.c:43
+    #5 0x7fff8bb96234 in start (libdyld.dylib:x86_64+0x5234)
 
+==89112==Register values:
+rax = 0x0000000000000002  rbx = 0x00000000ff564157  rcx = 0x00007fff59b24f03  rdx = 0x0000000000000000
+rdi = 0x00000000ff564157  rsi = 0x00000000ff564157  rbp = 0x00007fff59b24ee0  rsp = 0x00007fff59b24eb0
+ r8 = 0x0000000000000001   r9 = 0x000000000000001e  r10 = 0x000000000000002e  r11 = 0x000000010613dfa0
+r12 = 0x00000000ff564147  r13 = 0x0000000000000000  r14 = 0x00007fff59b24f08  r15 = 0x0000000000000001
 AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/../sanitizer_common/sanitizer_atomic_clang.h:81 in bool __sanitizer::atomic_compare_exchange_strong<__sanitizer::atomic_uint8_t>(__sanitizer::atomic_uint8_t volatile*, __sanitizer::atomic_uint8_t::Type*, __sanitizer::atomic_uint8_t::Type, __sanitizer::memory_order)
-==27559==ABORTING
+SUMMARY: AddressSanitizer: SEGV (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x3808) in __asan::Allocator::Deallocate(void*, unsigned long, __sanitizer::BufferedStackTrace*, __asan::AllocType)
+==89112==ABORTING
+Abort trap: 6
 ```
 
 
 
 
 
-#  Infinite loop in wav_read in libwav.c 
+#   Infinite loop in wav_read in libwav.c 
 
-I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__infinite_loop) can cause infinite loop in function `wav_read`  when running the **test** `wav_gain` in folder `tools/wav_gain` with the following command:
+I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__infinite_loop) can cause infinite loop in function `wav_read`  when running the  `wav_gain` in folder `tools/wav_gain` with the following command:
 
 ```shell
 ./wav_gain wav_gain__crash__infinite_loop 1.wav
@@ -110,13 +113,13 @@ Here is the gdb information:
 
 
 
-#  SEGV in function print_info in wav_info.c
+#   SEGV in function print_info in wav_info.c
 
 
 
 
 
-I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_info__crash__print_info) can cause SEGV signal in function `print_info`  when running the **test** `wav_info` in folder `tools/wav_info` with the following command:
+I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_info__crash__print_info) can cause SEGV signal in function `print_info`  when running the  `wav_info` in folder `tools/wav_info` with the following command:
 
 
 
