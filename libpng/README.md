@@ -32,7 +32,7 @@ The `makefile.std` in folder `contrib/pngminus` should also be modified before t
 
 
 
-```
+```diff
 index 14e25cd64..553bbe354 100644
 --- a/contrib/pngminus/makefile.std
 +++ b/contrib/pngminus/makefile.std
