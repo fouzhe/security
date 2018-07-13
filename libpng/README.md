@@ -6,3 +6,9 @@ There is a bug in **libpng 1.6.34** when using [pngwriter](https://github.com
 
 There is more information by inferring [this](https://github.com/pngwriter/pngwriter/issues/129)!
 
+
+
+
+
+# Memory Leak in png2pnm
+

@@ -4,6 +4,10 @@
 
 
 
+********************************************Update:this issue should be in libpng rather than in pngwrite*********************************************************
+
+
+
 I use **Clang 6.0 and AddressSanitizer**  to build **pngwriter v0.7.0**, this [file](https://github.com/fouzhe/security/blob/master/pngwriter/crash_SEGV_readfromfile) can cause SEGV signal when running the **test** `blackwhite` in folder `pngwriter-build` with the following command:
 
 
