@@ -1,4 +1,4 @@
-#  SEGV in function png_free_data
+#  SEGV in function png_free_data(CVE-2018-14048)
 
 
 

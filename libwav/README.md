@@ -1,4 +1,4 @@
-#    SEGV in function apply_gain in wav_gain.c
+#    SEGV in function apply_gain in wav_gain.c(CVE-2018-14052)
 
 
 
@@ -38,7 +38,7 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/libwav/tools/wav_gain/wav_g
 
 
 
-#   SEGV in function wrap_free in libwav.c
+#   SEGV in function wrap_free in libwav.c(CVE-2018-14050)
 
 
 
@@ -85,7 +85,7 @@ Abort trap: 6
 
 
 
-#   Infinite loop in wav_read in libwav.c 
+#   Infinite loop in wav_read in libwav.c(CVE-2018-14051) 
 
 I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__infinite_loop) can cause infinite loop in function `wav_read`  when running the  `wav_gain` in folder `tools/wav_gain` with the following command:
 
@@ -140,7 +140,7 @@ The infinite loop is caused by this:
 
 
 
-#   SEGV in function print_info in wav_info.c
+#   SEGV in function print_info in wav_info.c(CVE-2018-14049)
 
 
 

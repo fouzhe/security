@@ -1,4 +1,4 @@
-#  SEGV in function pngwriter::readfromfile
+#  SEGV in function pngwriter::readfromfile(CVE-2018-14047)
 
 
 
