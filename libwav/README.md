@@ -187,3 +187,46 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/
 ==32370==ABORTING
 ```
 
+
+
+
+
+
+
+# SEGV in function wav_write in libwav.c
+
+I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__wav_write) can cause SEGV signal in function `wav_write`  in `libwav.c` when running the  `wav_gain` in folder `tools/wav_gain` with the following command:
+
+```shell
+./wav_gain wav_gain__crash__wav_write 1.wav
+```
+
+
+
+This is the ASAN information:
+
+```
+LibWAV v. 0.0.1 A (c) 2016 - 2017 Marc Volker Dickmann
+
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==32413==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0000004fffc0 bp 0x000000000000 sp 0x7fffefa377d0 T0)
+==32413==The signal is caused by a READ memory access.
+==32413==Hint: address points to the zero page.
+    #0 0x4fffbf in __sanitizer::StackDepotPut(__sanitizer::StackTrace) /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/sanitizer_common/sanitizer_stackdepotbase.h:65
+    #1 0x42324b in __asan::Allocator::Allocate(unsigned long, unsigned long, __sanitizer::BufferedStackTrace*, __asan::AllocType, bool) /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/asan_allocator.cc:496
+    #2 0x423f46 in __asan::asan_malloc(unsigned long, __sanitizer::BufferedStackTrace*) /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/asan_allocator.cc:856
+    #3 0x4de114 in __interceptor_malloc /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/asan_malloc_linux.cc:89
+    #4 0x7f9ea1723cdc  (/lib/x86_64-linux-gnu/libc.so.6+0x6dcdc)
+    #5 0x49627a in __interceptor_fopen /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/../sanitizer_common/sanitizer_common_interceptors.inc:5528
+    #6 0x51719d in wav_write /home/fouzhe/my_fuzz/libwav/tools/wav_gain/../../libwav.c:202:12
+    #7 0x518b10 in gain_file /home/fouzhe/my_fuzz/libwav/tools/wav_gain/wav_gain.c:28:6
+    #8 0x518b10 in main /home/fouzhe/my_fuzz/libwav/tools/wav_gain/wav_gain.c:43
+    #9 0x7f9ea16d682f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #10 0x419f08 in _start (/home/fouzhe/my_fuzz/libwav/tools/wav_gain/wav_gain+0x419f08)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/sanitizer_common/sanitizer_stackdepotbase.h:65 in __sanitizer::StackDepotPut(__sanitizer::StackTrace)
+==32413==ABORTING
+```
+
