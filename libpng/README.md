@@ -140,7 +140,7 @@ SUMMARY: AddressSanitizer: 2560 byte(s) leaked in 2 allocation(s).
 
 
 
-# stack-buffer-overflow in png2pnm in function get_token
+# stack-buffer-overflow in pnm2png in function get_token
 
 There is an issue in **png2pnm** in **libpng 1.6** . It's a stack-buffer-overflow in png2pnm in function get_token.
 
