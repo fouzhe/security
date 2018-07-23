@@ -193,7 +193,7 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/
 
 
 
-# SEGV in function wav_write in libwav.c
+# SEGV in function wav_write in libwav.c(CVE-2018-14549)
 
 I use **Clang 6.0 and AddressSanitizer**  to build **libwav**, this [file](https://github.com/fouzhe/security/blob/master/libwav/wav_gain__crash__wav_write) can cause SEGV signal in function `wav_write`  in `libwav.c` when running the  `wav_gain` in folder `tools/wav_gain` with the following command:
 
