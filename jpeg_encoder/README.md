@@ -1,4 +1,4 @@
-# Allocate Failure
+# Allocate Failure in readFromBMP
 
 
 
