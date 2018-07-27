@@ -177,5 +177,76 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/tinyrenderer_test/tinyrende
 
 
 
+# Heap buffer overflow in function vec<3ul, float>::norm
+
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_norm.obj) with those tga file [tga1](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_norm_diffuse.tga),[tga2](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_norm_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_norm_spec.tga) can cause heap buffer overflow in function vec<3ul, float>::norm when executing this command:
+
+```shell
+./main $POC(obj file only)
+```
+
+This is the ASAN information:
+
+```shell
+=================================================================
+==32048==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x623000001903 at pc 0x00000053905d bp 0x7ffcd16f47e0 sp 0x7ffcd16f47d8
+READ of size 8 at 0x623000001903 thread T0
+    #0 0x53905c in vec<3ul, float>::norm() /home/fouzhe/my_fuzz/tinyrenderer/./geometry.h:38:41
+    #1 0x53905c in vec<3ul, float>::normalize(float) /home/fouzhe/my_fuzz/tinyrenderer/./geometry.h:39
+    #2 0x53905c in Model::normal(int, int) /home/fouzhe/my_fuzz/tinyrenderer/model.cpp:106
+    #3 0x5480d4 in Shader::vertex(int, int) /home/fouzhe/my_fuzz/tinyrenderer/main.cpp:27:104
+    #4 0x546295 in main /home/fouzhe/my_fuzz/tinyrenderer/main.cpp:82:24
+    #5 0x7f9b5f1e782f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #6 0x41c188 in _start (/home/fouzhe/my_fuzz/tinyrenderer/main+0x41c188)
+
+0x623000001903 is located 3 bytes to the right of 6144-byte region [0x623000000100,0x623000001900)
+allocated by thread T0 here:
+    #0 0x517e48 in operator new(unsigned long) /home/fouzhe/llvm/llvm/projects/compiler-rt/lib/asan/asan_new_delete.cc:92
+    #1 0x539a6d in __gnu_cxx::new_allocator<vec<3ul, float> >::allocate(unsigned long, void const*) /usr/lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ext/new_allocator.h:104:27
+    #2 0x539a6d in __gnu_cxx::__alloc_traits<std::allocator<vec<3ul, float> > >::allocate(std::allocator<vec<3ul, float> >&, unsigned long) /usr/lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/ext/alloc_traits.h:182
+    #3 0x539a6d in std::_Vector_base<vec<3ul, float>, std::allocator<vec<3ul, float> > >::_M_allocate(unsigned long) /usr/lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/stl_vector.h:170
+    #4 0x539a6d in std::vector<vec<3ul, float>, std::allocator<vec<3ul, float> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<vec<3ul, float>*, std::vector<vec<3ul, float>, std::allocator<vec<3ul, float> > > >, vec<3ul, float> const&) /usr/lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/vector.tcc:353
+    #5 0x53148d in std::vector<vec<3ul, float>, std::allocator<vec<3ul, float> > >::push_back(vec<3ul, float> const&) /usr/lib/gcc/x86_64-linux-gnu/5.4.0/../../../../include/c++/5.4.0/bits/stl_vector.h:925:4
+    #6 0x53148d in Model::Model(char const*) /home/fouzhe/my_fuzz/tinyrenderer/model.cpp:19
+    #7 0x5461f7 in main /home/fouzhe/my_fuzz/tinyrenderer/main.cpp:78:21
+    #8 0x7f9b5f1e782f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/fouzhe/my_fuzz/tinyrenderer/./geometry.h:38:41 in vec<3ul, float>::norm()
+Shadow bytes around the buggy address:
+  0x0c467fff82d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c467fff82e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c467fff82f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c467fff8300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c467fff8310: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0c467fff8320:[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff8330: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff8340: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff8350: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff8360: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff8370: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==32048==ABORTING
+```
+
+
+
 
 
