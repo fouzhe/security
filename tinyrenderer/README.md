@@ -2,7 +2,9 @@
 
 
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_Model::uv.obj) with those tga file [tga1](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_Model::uv_diffuse.tga),[tga2](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_Model::uv_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_Model::uv_spec.tga) can cause heap buffer overflow in function Model::uv when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_spec.tga) can cause heap buffer overflow in function Model::uv when executing this command:
+
+
 
 ```shell
 ./main $POC(obj file only)
@@ -79,7 +81,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 # Heap buffer overflow in function Model::vert
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_Model::vert.obj) with those tga file [tga1](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_Model::vert_diffuse.tga),[tga2](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_Model::vert_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_Model::vert_spec.tga) can cause heap buffer overflow in function Model::vert when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_spec.tga) can cause heap buffer overflow in function Model::vert when executing this command:
 
 ```shell
 ./main $POC(obj file only)
@@ -151,7 +153,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 # SEGV in function Model::uv
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/tinyrenderer/SEGV_Model::uv.obj) with those tga file [tga1](https://github.com/fouzhe/security/tinyrenderer/SEGV_Model::uv_diffuse.tga),[tga2](https://github.com/fouzhe/security/tinyrenderer/SEGV_Model::uv_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/tinyrenderer/SEGV_Model::uv_spec.tga) can cause SEGV in function Model::uv when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_spec.tga) can cause SEGV in function Model::uv when executing this command:
 
 ```shell
 ./main $POC(obj file only)
@@ -179,7 +181,7 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/tinyrenderer_test/tinyrende
 
 # Heap buffer overflow in function vec<3ul, float>::norm
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_norm.obj) with those tga file [tga1](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_norm_diffuse.tga),[tga2](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_norm_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/tinyrenderer/heap-buffer-overflow_norm_spec.tga) can cause heap buffer overflow in function vec<3ul, float>::norm when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_spec.tga) can cause heap buffer overflow in function vec<3ul, float>::norm when executing this command:
 
 ```shell
 ./main $POC(obj file only)
@@ -244,6 +246,67 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
   Left alloca redzone:     ca
   Right alloca redzone:    cb
 ==32048==ABORTING
+```
+
+
+
+
+
+# Heap buffer overflow in function vec<3ul, float>::normalize(float)
+
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_spec.tga) can cause heap buffer overflow in function vec<3ul, float>::normalize(float) when executing this command:
+
+```shell
+./main $POC(obj file only)
+```
+
+This is the ASAN information:
+
+```shell
+=================================================================
+==18198==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x623000008d8c at pc 0x000000538fa2 bp 0x7ffd3d4292c0 sp 0x7ffd3d4292b8
+READ of size 8 at 0x623000008d8c thread T0
+    #0 0x538fa1 in vec<3ul, float>::normalize(float) /home/fouzhe/my_fuzz/tinyrenderer/./geometry.h:39:43
+    #1 0x538fa1 in Model::normal(int, int) /home/fouzhe/my_fuzz/tinyrenderer/model.cpp:106
+    #2 0x5480d4 in Shader::vertex(int, int) /home/fouzhe/my_fuzz/tinyrenderer/main.cpp:27:104
+    #3 0x546295 in main /home/fouzhe/my_fuzz/tinyrenderer/main.cpp:82:24
+    #4 0x7f93897a582f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #5 0x41c188 in _start (/home/fouzhe/my_fuzz/tinyrenderer/main+0x41c188)
+
+Address 0x623000008d8c is a wild pointer.
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/fouzhe/my_fuzz/tinyrenderer/./geometry.h:39:43 in vec<3ul, float>::normalize(float)
+Shadow bytes around the buggy address:
+  0x0c467fff9160: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff9170: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff9180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff9190: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff91a0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c467fff91b0: fa[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff91c0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff91d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff91e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff91f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c467fff9200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==18198==ABORTING
 ```
 
 
