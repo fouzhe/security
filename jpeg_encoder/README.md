@@ -29,7 +29,7 @@ This is the ASAN information:
 
 
 
-# SEGV in function readFromBMP
+# SEGV in function readFromBMP(CVE-2018-14944)
 
 I used **Clang 6.0 and AddressSanitizer**  to build **jpeg-encoder**, this [file](https://github.com/fouzhe/security/blob/master/jpeg_encoder/SEGV_readFromBMP) can cause SEGV in function readFromBMP when executing this command:
 
@@ -90,7 +90,7 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/jpeg_encoder/jpeg_encoder.c
 
 
 
-# heap-buffer-overflow in function readFromBMP
+# heap-buffer-overflow in function readFromBMP(CVE-2018-14945)
 
 I used **Clang 6.0 and AddressSanitizer**  to build **jpeg-encoder**, this [file](https://github.com/fouzhe/security/blob/master/jpeg_encoder/heap_buffer_overflow_readFromBMP) can cause heap-buffer-overflow in function readFromBMP when executing this command:
 

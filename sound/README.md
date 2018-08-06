@@ -32,7 +32,7 @@ wBufferLength : 4293066752maxInSamples 4293066752
 
 
 
-# Alloc-dealloc-mismatch in function openWavFile
+# Alloc-dealloc-mismatch in function openWavFile(CVE-2018-14948)
 
 I used **gcc 5.4 and AddressSanitizer**  to build **[sound](https://github.com/dilawar/sound/commit/357c2c57e2127dbd996b7e7dce90148f08cf7cbf)**, this [file](https://github.com/fouzhe/security/blob/master/sound/alloc_dealloc_mismatch_openWavFile) can cause alloc-dealloc-mismatch when executing this command:
 

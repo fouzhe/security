@@ -1,4 +1,4 @@
-#    Alloc_dealloc_mismatch in function ~HtmlString
+#    Alloc_dealloc_mismatch in function ~HtmlString(CVE-2018-14946)
 
 I use **Clang 6.0 and AddressSanitizer**  to build **pdf2json v0.69**, this [file](https://github.com/fouzhe/security/blob/master/pdf2json/alloc_dealloc_mismatch_~HtmlString.pdf) can cause alloc-dealloc-mismatch with the following command:
 
@@ -42,7 +42,7 @@ SUMMARY: AddressSanitizer: alloc-dealloc-mismatch /home/fouzhe/llvm/llvm/project
 
 
 
-# Alloc_dealloc_mismatch in function CSStyle
+# Alloc_dealloc_mismatch in function CSStyle(CVE-2018-14947)
 
 I use **Clang 6.0 and AddressSanitizer**  to build **pdf2json v0.69**, this [file](https://github.com/fouzhe/security/blob/master/pdf2json/alloc_dealloc_mismatch_CSStyle.pdf) can cause alloc-dealloc-mismatch with the following command:
 
