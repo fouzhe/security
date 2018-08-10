@@ -1,8 +1,8 @@
-# Allocate Failure in readFromBMP
+# Allocate Failure in function readFromBMP
 
 
 
-I used **Clang 6.0 and AddressSanitizer**  to build **jpeg-encoder**, this [file](https://github.com/fouzhe/security/blob/master/jpeg_encoder/allocate_failure_readFromBMP) can cause allocate failure when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **jpeg-encoder**, this [file](https://github.com/fouzhe/security/blob/master/jpeg_encoder/allocate_failure_readFromBMP) can cause allocate failure in function readFromBMP in jpeg_encoder.cpp when executing this command:
 
 ```shell
 ./a.out allocate_failure_readFromBMP
@@ -62,7 +62,7 @@ SUMMARY: AddressSanitizer: SEGV (/lib/x86_64-linux-gnu/libc.so.6+0x8f3f1)
 
 # SEGV in function _convertColorSpace
 
-I used **Clang 6.0 and AddressSanitizer**  to build **jpeg-encoder**, this [file](https://github.com/fouzhe/security/blob/master/jpeg_encoder/SEGV__convertColorSpace) can cause SEGV in function _convertColorSpace when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **jpeg-encoder**, this [file](https://github.com/fouzhe/security/blob/master/jpeg_encoder/SEGV__convertColorSpace) can cause SEGV in function _convertColorSpace in jpeg_encoder.cpp when executing this command:
 
 ```shell
 ./a.out SEGV__convertColorSpace
@@ -156,7 +156,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 # heap-buffer-overflow in function _convertColorSpace
 
-I used **Clang 6.0 and AddressSanitizer**  to build **jpeg-encoder**, this [file](https://github.com/fouzhe/security/blob/master/jpeg_encoder/heap_buffer_overflow__convertColorSpace) can cause heap-buffer-overflow in function _convertColorSpace when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **jpeg-encoder**, this [file](https://github.com/fouzhe/security/blob/master/jpeg_encoder/heap_buffer_overflow__convertColorSpace) can cause heap-buffer-overflow in function _convertColorSpace in jpeg_encoder.cpp when executing this command:
 
 ```shell
 ./a.out heap_buffer_overflow__convertColorSpace
