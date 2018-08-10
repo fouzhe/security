@@ -2,7 +2,7 @@
 
 
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_spec.tga) can cause heap buffer overflow in function Model::uv when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::uv_spec.tga) can cause heap buffer overflow in function Model::uv in model.cpp when executing this command:
 
 
 
@@ -81,7 +81,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 # Heap buffer overflow in function Model::vert
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_spec.tga) can cause heap buffer overflow in function Model::vert when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_Model::vert_spec.tga) can cause heap buffer overflow in function Model::vert  in model.cpp when executing this command:
 
 ```shell
 ./main $POC(obj file only)
@@ -153,7 +153,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 # SEGV in function Model::uv
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_spec.tga) can cause SEGV in function Model::uv when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/SEGV_Model::uv_spec.tga) can cause SEGV in function Model::uv  in model.cpp when executing this command:
 
 ```shell
 ./main $POC(obj file only)
@@ -181,7 +181,7 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/tinyrenderer_test/tinyrende
 
 # Heap buffer overflow in function vec<3ul, float>::norm
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_spec.tga) can cause heap buffer overflow in function vec<3ul, float>::norm when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_norm_spec.tga) can cause heap buffer overflow in function vec<3ul, float>::norm in geometry.h when executing this command:
 
 ```shell
 ./main $POC(obj file only)
@@ -254,7 +254,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 # Heap buffer overflow in function vec<3ul, float>::normalize(float)
 
-I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_spec.tga) can cause heap buffer overflow in function vec<3ul, float>::normalize(float) when executing this command:
+I used **Clang 6.0 and AddressSanitizer**  to build **[tinyrenderer](https://github.com/ssloy/tinyrenderer)**, this [obj file](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize.obj) with those tga file [tga1](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_diffuse.tga),[tga2](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_nm_tangent.tga),[tga3](https://github.com/fouzhe/security/blob/master/tinyrenderer/heap-buffer-overflow_normalize_spec.tga) can cause heap buffer overflow in function vec<3ul, float>::normalize(float) in geometry.h when executing this command:
 
 ```shell
 ./main $POC(obj file only)
