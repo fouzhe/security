@@ -1,4 +1,4 @@
-# Heap buffer overflow in function BerEncoder_encodeOctetString
+# Heap buffer overflow in function BerEncoder_encodeOctetString(CVE-2018-18834)
 
 
 
