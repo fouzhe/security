@@ -1,4 +1,6 @@
-# Heap buffer overflow in function BerEncoder_encodeOctetString(CVE-2018-18834)
+
+
+# Heap buffer overflow in function BerEncoder_encodeOctetString
 
 
 
@@ -230,4 +232,29 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 ```
 
 
+
+
+
+# SEGV in function ClientDataSet_getValues
+
+I used **gcc 5.4 and AddressSanitizer**(`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`)  to build **[libiec61850](https://github.com/mz-automation/libiec61850)**. 
+
+First, I run the `server_example_basic_io` in directory `libiec61850/examples/server_example_basic_io` by command `sudo ./server_example_basic_io` so that the server is set up. Then I tested `iec61850_client_example4` in directory `libiec61850/examples/iec61850_client_example4` by command `sudo ./client_example4`. But I got `SEGV` in function  `ClientDataSet_getValues` in `ied_connection.c`.
+
+
+
+This is the ASAN information:
+
+```
+=================================================================
+==13178==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x000000412330 bp 0x7ffedff5df40 sp 0x7ffedff5df30 T0)
+    #0 0x41232f in ClientDataSet_getValues src/iec61850/client/ied_connection.c:216
+    #1 0x402a06 in main /home/fouzhe/libiec61850_pure/libiec61850/examples/iec61850_client_example4/client_example4.c:77
+    #2 0x7f8f5eb6682f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #3 0x402658 in _start (/home/fouzhe/libiec61850_pure/libiec61850/examples/iec61850_client_example4/client_example4+0x402658)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV src/iec61850/client/ied_connection.c:216 ClientDataSet_getValues
+==13178==ABORTING
+```
 
