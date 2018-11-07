@@ -258,3 +258,28 @@ SUMMARY: AddressSanitizer: SEGV src/iec61850/client/ied_connection.c:216 ClientD
 ==13178==ABORTING
 ```
 
+
+
+
+
+
+
+# SEGV in function ControlObjectClient_setCommandTerminationHandler
+
+I used **gcc 5.4 and AddressSanitizer**(`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`)  to build **[libiec61850](https://github.com/mz-automation/libiec61850)**. 
+
+First, I run the `server_example_basic_io` in directory `libiec61850/examples/server_example_basic_io` by command `sudo ./server_example_basic_io` so that the server is set up. Then I tested `iec61850_client_example_control` in directory `libiec61850/examples/iec61850_client_example_control` by command `sudo ./client_example_control`. But I got `SEGV` in function  `ControlObjectClient_setCommandTerminationHandler` in `client_control.c`.
+
+
+
+This is the ASAN information:
+
+```
+=================================================================
+==16582==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000050 (pc 0x00000044a3d4 bp 0x60800000bfa0 sp 0x7ffd097d60c0 T0)
+    #0 0x44a3d3 in ControlObjectClient_setCommandTerminationHandler src/iec61850/client/client_control.c:267
+    #1 0x405af2 in main /home/fouzhe/my_fuzz/libiec61850/examples/iec61850_client_example_control/client_example_control.c:191
+    #2 0x7f557490f82f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #3 0x4093b8 in _start (/home/fouzhe/my_fuzz/libiec61850/examples/iec61850_client_example_control/client_example_control+0x4093b8)
+```
+
