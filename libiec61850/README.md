@@ -283,3 +283,90 @@ This is the ASAN information:
     #3 0x4093b8 in _start (/home/fouzhe/my_fuzz/libiec61850/examples/iec61850_client_example_control/client_example_control+0x4093b8)
 ```
 
+
+
+# SEGV in function Ethernet_receivePacket
+
+I built **[libiec61850](https://github.com/mz-automation/libiec61850)** in **macOS 10.12.6** with **AddressSanitizer**(`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`).
+
+I ran the `sv_subscriber` in directory `libiec61850/examples/sv_subscriber` by command `sudo ./sv_subscriber`, however, there is a `SEGV` in function `Ethernet_receivePacket` in `ethernet_bsd.c` when the selected interface is unable. 
+
+
+
+Here is output with ASAN information:
+
+```
+Using interface eth0
+Unable to select interface eth0!
+Unable to set ethertype filter!
+ASAN:DEADLYSIGNAL
+=================================================================
+==76989==ERROR: AddressSanitizer: SEGV on unknown address 0x00000010 (pc 0x0008b013 bp 0xb078ce68 sp 0xb078cd50 T1)
+==76989==The signal is caused by a READ memory access.
+==76989==Hint: address points to the zero page.
+    #0 0x8b012 in Ethernet_receivePacket ethernet_bsd.c:369
+    #1 0x83b2f in SVReceiver_tick sv_subscriber.c:547
+    #2 0x8342d in svReceiverLoop sv_subscriber.c:167
+    #3 0x8880b in destroyAutomaticThread thread_bsd.c:88
+    #4 0x17d185 in __asan::AsanThread::ThreadStart(unsigned long, __sanitizer::atomic_uintptr_t*) (libclang_rt.asan_osx_dynamic.dylib:i386+0x5f185)
+    #5 0x16a039 in asan_thread_start(void*) (libclang_rt.asan_osx_dynamic.dylib:i386+0x4c039)
+    #6 0xa1754046 in _pthread_body (libsystem_pthread.dylib:i386+0x4046)
+    #7 0xa1753f8e in _pthread_start (libsystem_pthread.dylib:i386+0x3f8e)
+    #8 0xa1753849 in thread_start (libsystem_pthread.dylib:i386+0x3849)
+
+==76989==Register values:
+eax = 0x00000010  ebx = 0x001ff800  ecx = 0x20000002  edx = 0x00000000
+edi = 0x018f4000  esi = 0x00000000  ebp = 0xb078ce68  esp = 0xb078cd50
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV ethernet_bsd.c:369 in Ethernet_receivePacket
+Thread T1 created by T0 here:
+    #0 0x169ed3 in wrap_pthread_create (libclang_rt.asan_osx_dynamic.dylib:i386+0x4bed3)
+    #1 0x885ea in Thread_start thread_bsd.c:99
+    #2 0x8331e in SVReceiver_start sv_subscriber.c:186
+    #3 0x7eda9 in main sv_subscriber_example.c:76
+    #4 0xa1541394 in start (libdyld.dylib:i386+0x5394)
+
+==76989==ABORTING
+Abort trap: 6
+```
+
+
+
+
+
+# SEGV in function Ethernet_sendPacket
+
+I built **[libiec61850](https://github.com/mz-automation/libiec61850)** in **macOS 10.12.6** with **AddressSanitizer**(`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`).
+
+I ran the `sv_publisher` in directory `libiec61850/examples/sv_publisher` by command `sudo ./sv_publisher`, however, there is a `SEGV` in function `Ethernet_sendPacket` in `ethernet_bsd.c` when the selected interface is unable. 
+
+
+
+Here is output with ASAN information:
+
+```
+Using interface eth0
+Could not find the network interface eth0!Unable to select interface eth0!
+ASAN:DEADLYSIGNAL
+=================================================================
+==77056==ERROR: AddressSanitizer: SEGV on unknown address 0x00000000 (pc 0x0004e3bd bp 0xbffe6a18 sp 0xbffe69e0 T0)
+==77056==The signal is caused by a READ memory access.
+==77056==Hint: address points to the zero page.
+    #0 0x4e3bc in Ethernet_sendPacket ethernet_bsd.c:416
+    #1 0x4500c in SVPublisher_publish sv_publisher.c:488
+    #2 0x1acc7 in main sv_publisher_example.c:70
+    #3 0xa1541394 in start (libdyld.dylib:i386+0x5394)
+
+==77056==Register values:
+eax = 0x00000000  ebx = 0x00000000  ecx = 0x20000000  edx = 0x00000000
+edi = 0x00000000  esi = 0x02f03880  ebp = 0xbffe6a18  esp = 0xbffe69e0
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV ethernet_bsd.c:416 in Ethernet_sendPacket
+==77056==ABORTING
+Abort trap: 6
+```
+
+
+
+
+
