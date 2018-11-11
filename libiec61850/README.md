@@ -370,7 +370,9 @@ Abort trap: 6
 
 
 
-#Another heap buffer overflow in function BerEncoder_encodeOctetString
+
+
+# Another heap buffer overflow in function BerEncoder_encodeOctetString
 
 This issue seems to be similiar to [this issue](https://github.com/fouzhe/security/tree/master/libiec61850#heap-buffer-overflow-in-function-berencoder_encodeoctetstring) which is reported several days ago. Although this bug has been fixed, there is  **another specific dataSetValue sequence** which can cause heap buffer overflow in another trace. 
 
