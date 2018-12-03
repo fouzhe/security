@@ -127,23 +127,24 @@ I used **clang 6.0 and AddressSanitizer**  to build **[mxml 2.12](https://github
 This is the ASAN information:
 
 ```shell
-==31901==ERROR: AddressSanitizer: heap-use-after-free on address 0x608000008ec0 at pc 0x7ff2337cb729 bp 0x7ffc9a16c840 sp 0x7ffc9a16c830
+==2544==ERROR: AddressSanitizer: heap-use-after-free on address 0x608000008ec0 at pc 0x7fedf0751729 bp 0x7fff65264ee0 sp 0x7fff65264ed0
 READ of size 8 at 0x608000008ec0 thread T0
-    #1 0x7ff2337cb80c in mxmlFindElement /home/fouzhe/my_fuzz/mxml/mxml-search.c:101
+    #0 0x7fedf0751728 in mxmlWalkNext /home/fouzhe/my_fuzz/mxml/mxml-search.c:212
+    #1 0x7fedf075180c in mxmlFindElement /home/fouzhe/my_fuzz/mxml/mxml-search.c:101
     #2 0x405074 in sort_node /home/fouzhe/my_fuzz/mxml/mxmldoc.c:3372
     #3 0x405b5d in scan_file /home/fouzhe/my_fuzz/mxml/mxmldoc.c:1981
     #4 0x402b1d in main /home/fouzhe/my_fuzz/mxml/mxmldoc.c:503
-    #5 0x7ff232fd782f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #5 0x7fedeff5d82f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
     #6 0x402ff8 in _start (/home/fouzhe/my_fuzz/mxml/mxmldoc+0x402ff8)
 
 0x608000008ec0 is located 32 bytes inside of 88-byte region [0x608000008ea0,0x608000008ef8)
 freed by thread T0 here:
-    #0 0x7ff233a732ca in __interceptor_free (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x982ca)
+    #0 0x7fedf09f92ca in __interceptor_free (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x982ca)
     #1 0x4050c1 in sort_node /home/fouzhe/my_fuzz/mxml/mxmldoc.c:3389
 
 previously allocated by thread T0 here:
-    #0 0x7ff233a7379a in __interceptor_calloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x9879a)
-    #1 0x7ff2337cae50 in mxml_new /home/fouzhe/my_fuzz/mxml/mxml-node.c:844
+    #0 0x7fedf09f979a in __interceptor_calloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x9879a)
+    #1 0x7fedf0750e50 in mxml_new /home/fouzhe/my_fuzz/mxml/mxml-node.c:844
 
 SUMMARY: AddressSanitizer: heap-use-after-free /home/fouzhe/my_fuzz/mxml/mxml-search.c:212 mxmlWalkNext
 Shadow bytes around the buggy address:
@@ -177,8 +178,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
   Array cookie:            ac
   Intra object redzone:    bb
   ASan internal:           fe
-==31901==ABORTING
-
+==2544==ABORTING
 ```
 
 
