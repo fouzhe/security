@@ -121,7 +121,7 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/mxml/mxmldoc.c:3796 write_e
 I used **clang 6.0 and AddressSanitizer**  to build **[mxml 2.12](https://github.com/michaelrsweet/mxml)**, this [file](https://github.com/fouzhe/security/blob/master/mxml/heap-use-after-free_mxmlWalkNext) can cause heap-use-after-free in mxmlWalkNext in mxml-search.c when executing this command:
 
 ```shell
-./testmxml $crash 1.xml
+./mxmldoc $crash
 ```
 
 This is the ASAN information:
