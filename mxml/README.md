@@ -1,4 +1,4 @@
-# Stack-buffer-overflow in Function mxml_write_node
+# Stack-buffer-overflow in Function mxml_write_node(CVE-2018-20004)
 
 I used **clang 6.0 and AddressSanitizer**  to build **[mxml 2.12](https://github.com/michaelrsweet/mxml)**, this [file](https://github.com/fouzhe/security/blob/master/mxml/Stack-buffer-overflow-mxml_write_node) can cause stack buffer overflow in function mxml_write_node in mxml-file.c when executing this command:
 
@@ -116,7 +116,7 @@ SUMMARY: AddressSanitizer: SEGV /home/fouzhe/my_fuzz/mxml/mxmldoc.c:3796 write_e
 
 
 
-# heap-use-after-free in Function mxmlWalkNext
+# heap-use-after-free in Function mxmlWalkNext(CVE-2018-20005)
 
 I used **clang 6.0 and AddressSanitizer**  to build **[mxml 2.12](https://github.com/michaelrsweet/mxml)**, this [file](https://github.com/fouzhe/security/blob/master/mxml/heap-use-after-free_mxmlWalkNext) can cause heap-use-after-free in mxmlWalkNext in mxml-search.c when executing this command:
 

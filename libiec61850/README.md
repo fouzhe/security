@@ -1,6 +1,6 @@
 
 
-# Heap buffer overflow in function BerEncoder_encodeOctetString
+# Heap buffer overflow in function BerEncoder_encodeOctetString(CVE-2018-18834)
 
 
 
@@ -235,7 +235,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 
 
 
-# SEGV in function ClientDataSet_getValues
+# SEGV in function ClientDataSet_getValues(CVE-2018-18937)
 
 I used **gcc 5.4 and AddressSanitizer**(`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`)  to build **[libiec61850](https://github.com/mz-automation/libiec61850)**. 
 
@@ -264,7 +264,7 @@ SUMMARY: AddressSanitizer: SEGV src/iec61850/client/ied_connection.c:216 ClientD
 
 
 
-# SEGV in function ControlObjectClient_setCommandTerminationHandler
+# SEGV in function ControlObjectClient_setCommandTerminationHandler(CVE-2018-19093)
 
 I used **gcc 5.4 and AddressSanitizer**(`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`)  to build **[libiec61850](https://github.com/mz-automation/libiec61850)**. 
 
@@ -285,7 +285,7 @@ This is the ASAN information:
 
 
 
-# SEGV in function Ethernet_receivePacket
+# SEGV in function Ethernet_receivePacket(CVE-2018-19121)
 
 I built **[libiec61850](https://github.com/mz-automation/libiec61850)** in **macOS 10.12.6** with **AddressSanitizer**(`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`).
 
@@ -334,7 +334,7 @@ Abort trap: 6
 
 
 
-# SEGV in function Ethernet_sendPacket
+# SEGV in function Ethernet_sendPacket(CVE-2018-19122)
 
 I built **[libiec61850](https://github.com/mz-automation/libiec61850)** in **macOS 10.12.6** with **AddressSanitizer**(`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`).
 
@@ -372,7 +372,7 @@ Abort trap: 6
 
 
 
-# Another heap buffer overflow in function BerEncoder_encodeOctetString
+# Another heap buffer overflow in function BerEncoder_encodeOctetString(CVE-2018-19185)
 
 This issue seems to be similiar to [this issue](https://github.com/fouzhe/security/tree/master/libiec61850#heap-buffer-overflow-in-function-berencoder_encodeoctetstring) which is reported several days ago. Although this bug has been fixed, there is  **another specific dataSetValue sequence** which can cause heap buffer overflow in another trace. 
 
