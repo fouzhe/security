@@ -8,7 +8,7 @@ I used **Clang 5.0 and AddressSanitizer** (`export CFLAGS="-g -fsanitize=address
 
 To compile the program, we modified the following two files:
 
-```git
+```diff
 diff --git a/test/Makefile b/test/Makefile
 index cfcb1ff..5a19b05 100644
 --- a/test/Makefile
@@ -40,7 +40,7 @@ index cfcb1ff..5a19b05 100644
 
 
 
-```
+```diff
 diff --git a/test/main.c b/test/main.c
 index 19cc5a5..c6012d9 100644
 --- a/test/main.c
@@ -282,7 +282,7 @@ index 19cc5a5..c6012d9 100644
 
 Then compile it by following command:
 
-```
+```shell
 cd test && make
 ```
 
