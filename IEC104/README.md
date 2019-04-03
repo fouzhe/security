@@ -1,5 +1,7 @@
 #Stack-buffer-overflow in function Iec104_Deal_I
 
+
+
 I used **Clang 5.0 and AddressSanitizer** (`export CFLAGS="-g -fsanitize=address" CXXFLAGS="-g -fsanitize=address" LDFLAGS="-fsanitize=address"` before `make`) to build **IEC104**, this [file](https://github.com/fouzhe/security/blob/master/IEC104/crash) can cause stack buffer overflow in Iec104.c:
 
 
